@@ -10,7 +10,6 @@ import authRoutes from "../src/routes/auth.route.js"
 dotenv.config()
 const app = express()
 
-//Middleware 
 app.use(express.json())
 app.use(helmet())
 app.use(morgan("common"))
