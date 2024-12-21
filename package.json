@@ -1,9 +1,10 @@
 {
   "name": "social-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",

@@ -1,17 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const helmet = require("helmet");
-const morgan = require("morgan");
+import morgan from "morgan";
+import helmet from "helmet";
+import express from "express";
+import dotenv from "dotenv";
 
+import { connectDB } from "../src/lib/mongo.js";
+import usersRoutes from "../src/routes/users.route.js";
+import authRoutes from "../src/routes/auth.route.js"
+
+dotenv.config()
 const app = express()
 
-mongoose.connect(process.env.MONGODB_URI, { newUserUrlParser : true, useUnifiedTopology: true }, () => {
-    console.log("Connected to database")
-})
-
 //Middleware 
+app.use(express.json())
+app.use(helmet())
+app.use(morgan("common"))
 
-app.listen(8800, () => {
-    console.log("Backend server is running")
+app.use("/api/users", usersRoutes)
+app.use("/api/auth", authRoutes)
+
+app.listen(process.env.PORT, () => {
+    console.log("Server is running on port:" + process.env.PORT)
+    connectDB()
 })
