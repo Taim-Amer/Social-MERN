@@ -2,8 +2,7 @@ import express from "express";
 
 const router = express.Router()
 
-router.get("/", (req, res) => {
-    res.send("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-})
+router.put("/:id", update)
+
 
 export default router;
