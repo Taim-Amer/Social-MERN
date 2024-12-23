@@ -59,3 +59,18 @@ export const getPost = async (req, res) => {
         res.status(500).json(error.message)
     }
 }
+
+export const getTimelinePosts = async (req, res) => {
+    try{    
+        const currentUser = await User.findById(req.body.userId)
+        const userPosts = await Post.find({ userId: currentUser._id })
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId) => {
+                return Post.find({ userId: friendId })
+            })
+        )
+        res.json(userPosts.cancat(...friendPosts))
+    } catch(error){
+        res.status(500).json(error.message)
+    }
+}
