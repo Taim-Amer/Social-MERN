@@ -44,8 +44,17 @@ export const likePost = async (req, res) => {
             res.status(200).json("The post has been liked")
         } else{
             await post.updateOne({ $pull: {likes: req.body.userId} })
-            res.status(200).json("The post has been disliked")
+            res.status(200).json("The post has been disliked") 
         }
+    } catch(error){
+        res.status(500).json(error.message)
+    }
+}
+
+export const getPost = async (req, res) => {
+    try{    
+        const post = await Post.findById(req.params.id)
+        res.status(200).json(post)
     } catch(error){
         res.status(500).json(error.message)
     }
